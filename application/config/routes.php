@@ -52,7 +52,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 $route['default_controller'] = 'pages/view';
 
-$route['(:any)'] = 'pages/view/$2';
+$route['login'] = 'usuarios/view/login';
+$route['pre_cadastro'] = 'usuarios/view/pre_cadastro';
+$route['pre_cadastro/(:any)'] = 'usuarios/view/cadastrar_$1';
+$route['(:any)'] = '$1/view/home';
+
+$route['(:any)'] = 'pages/view/$1';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
