@@ -221,6 +221,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	        }
 	    }, {
+	        key: 'removeSelectedHighlight',
+	        value: function removeSelectedHighlight() {
+				var idx = parseInt($("#remove-highlight").text().replace("Remover Highlight ", "")) - 1;
+				this.groups.splice(idx, 1);
+
+				this._drawn = []
+	        }
+
+	        /**
+	         * Create and return a new HTML div element.
+	         *
+	         * @param {HTMLImageElement} element
+	         * @returns {HTMLDivElement}
+	         * @private
+	         */
+
+	    }, {
 			key: '_writeText',
 	        value: function _writeText(canvas) {
 				var context = canvas.getContext('2d');
@@ -405,7 +422,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				if(this._lastClick == undefined){
 					this._lastClick = area;
 				}else{
-					console.log(area);
+					// console.log(area);
 					var gridId = this._lastClick.attributes['gridId'].value;
 					var coords0 = gridId.split(',').map(function (coord) {
 						    return parseInt(coord);
@@ -416,7 +433,7 @@ return /******/ (function(modules) { // webpackBootstrap
 							return parseInt(coord);
 						});
 
-					console.log([coords0, coordsN]);
+					// console.log([coords0, coordsN]);
 
 					// var gridWidth = parseInt(area.attributes['gridWidth'].value);]
 					var gridWidth = parseInt(canvas.attributes['outerWidth']);

@@ -10,8 +10,8 @@ class Corretores extends CI_Controller{
             show_404();
         }
 
-        $data['assets'] = ['css' => ['entregar_aluno.css', 'image-map-highlighter.css'],
-                            'js' => ['image-map-highlighter.js', 'entregar_aluno.js']];
+        $data['assets'] = ['css' => ['image-map-highlighter.css', 'entregar_aluno.css'],
+                            'js' => ['image-map-highlighter.js']];
             
         $this->load->view('templates/header', $data);
         $this->load->view('corretores/' . $page, $data);

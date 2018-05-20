@@ -1,6 +1,10 @@
 // var image = document.querySelector('.image');
 // var highlighter = new ImageMapHighlighter(image);
 
+$(document).ready(function(){
+    $('.tabular.menu .item').tab();
+});
+
 var image = $('.image')[0];
 
 $("#remove-highlight").prop('disabled', true);
@@ -18,8 +22,6 @@ var highlighter = new ImageMapHighlighter(image,{
 
 
 highlighter.init();
-
-$('.tabular.menu .item').tab();
 
 $('span.comment-link').click(function(){
     _this = this;
@@ -42,10 +44,4 @@ $('span.comment-link').click(function(){
             }
         });
     }
-});
-
-
-
-$("#remove-highlight").click(function(){
-    highlighter.removeSelectedHighlight();
 });

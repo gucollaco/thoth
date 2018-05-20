@@ -2,7 +2,7 @@
         <div class="ui segment grid segment-body">
             <div class="ten wide column">
                 <div class="essay-holder">
-                    <img class="ui fluid image essay" src="images/essay_model.jpg" usemap="#map">
+                    <img class="ui fluid image essay" src="<?=base_url('assets/images/essay_model.jpg')?>" usemap="#map">
                 </div>
             </div>
             <div class="six wide column">

@@ -77,7 +77,7 @@ $db['default'] = array(
 	'dsn'	=> 'mysql:host=localhost:3306;dbname=thoth',
 	'hostname' => 'localhost:3306',
 	'username' => 'root',
-	'password' => '',
+	'password' => 'thinker',
 	'database' => 'thoth',
 	'dbdriver' => 'pdo',
 	'dbprefix' => '',

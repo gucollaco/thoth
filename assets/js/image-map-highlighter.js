@@ -1,3 +1,38 @@
+function roundRect(ctx, x, y, width, height, radius, fill, stroke) {
+	if (typeof stroke == 'undefined') {
+	  stroke = true;
+	}
+	if (typeof radius === 'undefined') {
+	  radius = 5;
+	}
+	if (typeof radius === 'number') {
+	  radius = {tl: radius, tr: radius, br: radius, bl: radius};
+	} else {
+	  var defaultRadius = {tl: 0, tr: 0, br: 0, bl: 0};
+	  for (var side in defaultRadius) {
+		radius[side] = radius[side] || defaultRadius[side];
+	  }
+	}
+	ctx.beginPath();
+	ctx.moveTo(x + radius.tl, y);
+	ctx.lineTo(x + width - radius.tr, y);
+	ctx.quadraticCurveTo(x + width, y, x + width, y + radius.tr);
+	ctx.lineTo(x + width, y + height - radius.br);
+	ctx.quadraticCurveTo(x + width, y + height, x + width - radius.br, y + height);
+	ctx.lineTo(x + radius.bl, y + height);
+	ctx.quadraticCurveTo(x, y + height, x, y + height - radius.bl);
+	ctx.lineTo(x, y + radius.tl);
+	ctx.quadraticCurveTo(x, y, x + radius.tl, y);
+	ctx.closePath();
+	if (fill) {
+	  ctx.fill();
+	}
+	if (stroke) {
+	  ctx.stroke();
+	}
+  
+  }
+
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
@@ -76,6 +111,8 @@ return /******/ (function(modules) { // webpackBootstrap
 			this._lastClick = undefined;
 			this.groups = [];
 			this.textos = [];
+			this._selectedIndex = undefined;
+			this._selected = undefined;
 	    }
 
 	    /**
@@ -122,19 +159,15 @@ return /******/ (function(modules) { // webpackBootstrap
 						_this._drawn.forEach(function(item, index){
 							_this._drawHighlightByArea(canvas, item);
 						});
-				
-						var context = canvas.getContext('2d');
-						context.font="25px Calibri";
-						context.fillStyle = "rgb(0, 0, 0)";
-						
-						_this.textos.forEach(function(item, index){
-							context.fillText(item[0], item[1], item[2]);
-						});
+
+						_this._writeText(canvas);
 					});
 
 					
 					map.addEventListener('click', function(event){
 						var isGroup = false;
+						var groupHere = undefined;
+						var groupIndex = undefined;
 						var coords = event.target.coords.split(',').map(function (coord) {
 							return parseInt(coord);
 						});
@@ -155,31 +188,99 @@ return /******/ (function(modules) { // webpackBootstrap
 							if(item0 <= itemI && itemI <= itemN){
 								// console.log([item0, itemI, itemN]);
 								isGroup = true;
+								groupHere = item;
+								groupIndex = index;
 							}
 						});
 
 						// console.log(isGroup);
 
-						if(!isGroup){
-							_this._drawHighlightLine(canvas, event.target);
 
-							_this._clearHighlights(canvas);
-							_this._drawn.forEach(function(item, index){
-								_this._drawHighlightByArea(canvas, item);
-							});
-				
-							var context = canvas.getContext('2d');
-							context.font="25px Calibri";
-							context.fillStyle = "rgb(0, 0, 0)";
-							
-							_this.textos.forEach(function(item, index){
-								context.fillText(item[0], item[1], item[2]);
-							});							
+						if(!isGroup){
+							_this._drawHighlightLine(canvas, event.target);			
+						}else{
+							if(_this._selected == groupHere){
+								_this._selected = undefined
+
+								$("#remove-highlight").prop('disabled', true);
+								$("#remove-highlight").text("Remover Highlight");
+							}
+							else{
+								_this._selected = groupHere;
+								_this._selectedIndex = groupIndex;
+							}
 						}
+
+						_this._clearHighlights(canvas);
+						_this._drawn.forEach(function(item, index){
+							_this._drawHighlightByArea(canvas, item);
+						});
+
+						_this._writeText(canvas);	
 					});
 	            }
 	        }
 	    }, {
+			key: '_writeText',
+	        value: function _writeText(canvas) {
+				var context = canvas.getContext('2d');
+
+				if(this._selected != undefined){
+					var groupHere = this._selected;
+					var groupIndex = this._selectedIndex + 1;
+
+					var gridWidth = canvas.attributes['outerWidth'];
+					var gridSize = 30;
+
+					var minArea = groupHere[0];
+					var maxArea = groupHere[1];
+
+					for(var j = minArea[1]; j <= maxArea[1]; j+= gridSize){
+						var minX = minArea[0];
+						if(j > minArea[1]){
+							minX = 0;
+						}
+						var nExactCol = Math.floor(gridWidth/gridSize);
+
+						var maxX = nExactCol * gridSize;
+						if(j == maxArea[1]){
+							maxX = maxArea[0]
+						}
+
+						for(var i = minX; i <= maxX; i += gridSize){
+							var idElement = 'area' + i + ',' + j;
+							var curr_area = document.getElementById(idElement);
+							if(curr_area != undefined){
+								// this._selected.push(curr_area);
+								var context = canvas.getContext('2d');
+				
+								var coords = curr_area.coords.split(',').map(function (coord) {
+									return parseInt(coord);
+								});
+				
+								context.fillStyle = "rgba(255, 0, 0, 0.3)";
+								context.fillRect(coords[0], coords[1], coords[2] - coords[0], coords[3] - coords[1]);
+							}
+						}
+					}
+
+					$("#remove-highlight").prop('disabled', false);
+					$("#remove-highlight").text("Remover Highlight " + groupIndex);
+				}
+
+				context.font="25px Calibri";
+				
+				this.textos.forEach(function(item, index){
+					context.fillStyle = 'rgb(204, 0, 0)';
+					// context.fillStyle = 'rgb(0, 102, 204)';
+					roundRect(context, canvas.attributes['outerWidth'] + 5, item[2] - 22, 30, 30, 3.5, true, false);
+					// context.fillRect(canvas.attributes['outerWidth'], item[2] - 22, 30, 30);
+	
+					context.fillStyle = "rgb(255, 255, 255)";
+					context.fillText(item[0], item[1] + 5, item[2]);
+				});			
+			}
+		}, {
 	        key: '_getDefaultOptions',
 	        value: function _getDefaultOptions() {
 	            return {
@@ -192,6 +293,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	                strokeWidth: 1,
 	                alwaysOn: false
 	            };
+	        }
+
+	        /**
+	         * Create and return a new HTML div element.
+	         *
+	         * @param {HTMLImageElement} element
+	         * @returns {HTMLDivElement}
+	         * @private
+	         */
+
+	    }, {
+	        key: 'removeSelectedHighlight',
+	        value: function removeSelectedHighlight() {
+				idx= parseInt($("#remove-highlight").text().replace("Remover Highlight "));
+				this._drawn.splice(idx, 1);
 	        }
 
 	        /**
@@ -226,7 +342,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        value: function _createCanvasFor(element) {
 	            var canvas = document.createElement('canvas');
 	            canvas.height = element.height;
-	            canvas.width = element.width;
+				canvas.width = element.width + 35;
+				canvas.attributes['outerWidth'] = element.width;
 	            return canvas;
 	        }
 
@@ -316,7 +433,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 					console.log([coords0, coordsN]);
 
-					var gridWidth = parseInt(area.attributes['gridWidth'].value);
+					// var gridWidth = parseInt(area.attributes['gridWidth'].value);]
+					var gridWidth = parseInt(canvas.attributes['outerWidth']);
 					var gridSize = parseInt(area.attributes['gridSize'].value);
 
 					var nCol = Math.ceil(gridWidth/gridSize);
@@ -347,7 +465,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 					if(!isGroup){
 						this.groups.push([minArea, maxArea]);
-						this.textos.push([this.groups.length.toString(), (nExactCol) * gridSize - (25/2), minArea[1] + (gridSize/4)]);
+						this.textos.push([this.groups.length.toString(), gridWidth + 9, minArea[1] + (gridSize/4)]);
+
+						$('#highlights').append('<hightlight number=' + this.groups.length.toString() + ' group="' + minArea[0] + ',' + minArea[1] + ',' + maxArea[0] + ',' + maxArea[1] + '"/>');
 
 						for(var j = minArea[1]; j <= maxArea[1]; j+= gridSize){
 							var minX = minArea[0];
@@ -374,13 +494,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 					this._lastClick = undefined;
 				}
-
-	            // var coords = area.coords.split(',').map(function (coord) {
-	            //     return parseInt(coord);
-	            // });
-	            // var shape = area.shape;
-
-	            // this._drawHighlight(canvas, shape, coords);
 	        }
 
 	        /**
@@ -393,11 +506,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	         */
 
 	    }, {
-	    }, {
 	        key: '_drawHighlight',
 	        value: function _drawHighlight(canvas, shape, coords) {
 				var context = canvas.getContext('2d');
-
+			
 	            context.beginPath();
 	            switch (shape) {
 	                case 'circle':
@@ -414,12 +526,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    break;
 	                default:
 	            }
-	            context.closePath();
-
+				context.closePath();
+				
 	            if (this.options.fill) {
-					context.fillStyle = this.css3Colour(this.options.fillColor, 0.5);
+					context.fillStyle = this.css3Colour(this.options.fillColor, 0.35);
 	                context.fill();
-	            }
+				}
+
+
 	        }
 
 	        /**

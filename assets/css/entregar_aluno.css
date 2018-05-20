@@ -52,3 +52,16 @@
 .ui.tabular.menu .item.active:hover{
     background: rgba(255, 255, 255, 1);
 }
+
+.comment-link{
+    font-style: italic;
+    cursor: pointer;
+}
+
+.comment-link.linked{
+    color: #e00000 !important;
+}
+
+.criterio-nota-total{    
+    font-size: 18px !important;
+}

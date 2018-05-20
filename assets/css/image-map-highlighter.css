@@ -2,10 +2,9 @@
   background-size: cover;
   position: relative; 
   opacity: 0.9;
-  
 }
-  .map-container canvas {
-    position: absolute; }
-  .map-container img {
-    opacity: 0;
-    position: absolute; }
+.map-container canvas {
+  position: absolute; }
+.map-container img {
+  opacity: 0;
+  position: absolute; }

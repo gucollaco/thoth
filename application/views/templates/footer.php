@@ -5,6 +5,7 @@
 	<script src="<?=base_url('assets/bootstrap/js/bootstrap.min.js')?>"></script>
 
     <script src="<?=base_url('assets/semantic/dist/semantic.min.js')?>"></script>
+    <script src="<?=base_url('assets/semantic/dist/components/tab.js')?>"></script>
     
     <!-- Bootstrap core JavaScript-->
     <script src="<?=base_url('assets/bootstrap/js/bootstrap.bundle.min.js')?>"></script>
