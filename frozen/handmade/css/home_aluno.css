@@ -1,28 +1,3 @@
-.container-body::before{
-    content: "";
-    display: block;
-    position: absolute;
-    z-index: -1;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background-image: url('../images/tekstura_background.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-}
-
-.full-height{
-    height: 100vh;
-}
-
-.flex-center-vertically {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-}
-
 .container-body > .grid > .column .segment-body{
     margin-top: 10vh !important;
     margin-bottom: 10vh !important;

@@ -56,3 +56,33 @@
   }
   
   /*---------------------------------------------*/
+
+.container-body{
+    background-image: url(../images/tekstura_background.jpg);
+    background-repeat: repeat-y;
+}
+
+  .container-boday::before{
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    min-height: 100%;
+    top: 0;
+    left: 0;
+    background-image: url('../images/tekstura_background.jpg');
+    background-repeat: repeat-y;
+    /* background-size: cover; */
+    /* background-position: center; */
+}
+
+.full-height{
+    height: 100vh;
+}
+
+.flex-center-vertically {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
