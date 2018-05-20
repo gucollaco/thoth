@@ -5,10 +5,15 @@ class Coordenadores extends CI_Controller{
 
         $data = array();
         //checa se a pagina existe
+        echo $page;
         if ( ! file_exists(APPPATH.'views/coordenadores/'.$page.'.php'))
         {   
             show_404();
         }
+
+        
+        $data['assets'] = ['css' => ['bootstrap.min.1.css']];
+            
             
         $this->load->view('templates/header', $data);
         $this->load->view('coordenadores/' . $page, $data);
@@ -94,19 +99,19 @@ class Coordenadores extends CI_Controller{
     }
 
     function consultar_corretores($id_coord) {
-        $data = Coordenadores_model->get_corretores($id_coord);
+        $data = $this->Coordenadores_model->get_corretores($id_coord);
 
         return $data;
     }
 
     function consultar_redacoes_entregues($turma) {
-        $data = Coordenadores_model->get_redacoes_entregues($turma);
+        $data = $this->Coordenadores_model->get_redacoes_entregues($turma);
 
         return $data;
     }
 
     function consultar_redacoes_corrigidas($turma) {
-        $data = Coordenadores_model->get_redacoes_corrigidas($turma);
+        $data = $this->Coordenadores_model->get_redacoes_corrigidas($turma);
 
         return $data;
     }

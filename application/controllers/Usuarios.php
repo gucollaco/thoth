@@ -9,6 +9,8 @@ class Usuarios extends CI_Controller{
         {   
             show_404();
         }
+        $data['assets'] = ['css' => ['login.css', 'bootstrap.min.css'],
+                            'js' => ['login.js']];
             
         $this->load->view('templates/header', $data);
         $this->load->view('usuarios/' . $page, $data);
@@ -26,7 +28,7 @@ class Usuarios extends CI_Controller{
             $dados = $this->Usuarios_model->validate($login, $senha);
             if ($dados[0]) {
                 $session_data = array(
-                    'id' => %dados[0]
+                    'id' => $dados[0],
                     'login' => $login,
                     'tipo' => $dados[1],
                 );
