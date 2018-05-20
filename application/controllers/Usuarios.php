@@ -9,6 +9,8 @@ class Usuarios extends CI_Controller{
         {   
             show_404();
         }
+        $data['assets'] = ['css' => ['login.css', 'bootstrap.min.css'],
+                            'js' => ['login.js']];
             
         $this->load->view('templates/header', $data);
         $this->load->view('usuarios/' . $page, $data);
@@ -24,11 +26,11 @@ class Usuarios extends CI_Controller{
             $senha = $this->input->post('senha');
 
             $dados = $this->Usuarios_model->validate($login, $senha);
-            if ($dados[0]) {
+            if ($dados) {
                 $session_data = array(
-                    'id' => %dados[0]
+                    'id' => $dados['id'],
                     'login' => $login,
-                    'tipo' => $dados[1],
+                    'tipo' => $dados['tipo'],
                 );
                 $this->session->set_userdata($session_data);
                 redirect(base_url());
@@ -94,7 +96,7 @@ class Usuarios extends CI_Controller{
             ];
 
             $this->Usuarios_model->insert_aluno($usuario);
-            
+            return;
             $this->session_data->unset_userdata('code');
             redirect(base_url());
         }

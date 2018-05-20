@@ -1,0 +1,88 @@
+
+
+/*//////////////////////////////////////////////////////////////////
+[ FONT ]*/
+
+@import url('https://fonts.googleapis.com/css?family=Raleway:900');
+
+@font-face {
+    font-family: Poppins-Regular;
+    src: url('../fonts/poppins/Poppins-Regular.ttf'); 
+  }
+  
+  @font-face {
+    font-family: Poppins-Bold;
+    src: url('../fonts/poppins/Poppins-Bold.ttf'); 
+  }
+  
+  @font-face {
+    font-family: Poppins-Medium;
+    src: url('../fonts/poppins/Poppins-Medium.ttf'); 
+  }
+  
+  @font-face {
+    font-family: Raleway-Regular;
+    src: url('../fonts/raleway/Raleway-Regular.ttf'); 
+  }
+  
+  @font-face {
+    font-family: Raleway-Black;
+    src: url('../fonts/raleway/Raleway-Black.ttf'); 
+  }
+  
+  @font-face {
+    font-family: Raleway-SemiBold;
+    src: url('../fonts/raleway/Raleway-SemiBold.ttf'); 
+  }
+  
+  @font-face {
+    font-family: Raleway-Bold;
+    src: url('../fonts/raleway/Raleway-Bold.ttf'); 
+  }
+  
+  
+  /*//////////////////////////////////////////////////////////////////
+  [ RESTYLE TAG ]*/
+  
+  * {
+      margin: 0px; 
+      padding: 0px; 
+      box-sizing: border-box;
+  }
+  
+  body, html {
+      height: 100%;
+      font-family: Poppins-Regular, sans-serif;
+  }
+  
+  /*---------------------------------------------*/
+
+.container-body{
+    background-image: url(../images/tekstura_background.jpg);
+    background-repeat: repeat-y;
+}
+
+  .container-boday::before{
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    min-height: 100%;
+    top: 0;
+    left: 0;
+    background-image: url('../images/tekstura_background.jpg');
+    background-repeat: repeat-y;
+    /* background-size: cover; */
+    /* background-position: center; */
+}
+
+.full-height{
+    height: 100vh;
+}
+
+.flex-center-vertically {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}

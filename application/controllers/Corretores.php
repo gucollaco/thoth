@@ -1,7 +1,7 @@
 <?php
 class Corretores extends CI_Controller{
 
-    public function view($page){
+    public function view($page = 'home'){
 
         $data = array();
         //checa se a pagina existe

@@ -55,9 +55,16 @@ $route['default_controller'] = 'pages/view';
 $route['login'] = 'usuarios/view/login';
 $route['pre_cadastro'] = 'usuarios/view/pre_cadastro';
 $route['pre_cadastro/(:any)'] = 'usuarios/view/cadastrar_$1';
-$route['(:any)'] = '$1/view/home';
 
-$route['(:any)'] = 'pages/view/$1';
+$route['alunos'] = 'alunos/view';
+$route['alunos/consultar_redacoes/(any:)'] = 'alunos/consultar_redacoes/$1';
+$route['alunos/(:any)'] = 'alunos/view/$1';
+$route['corretores'] = 'corretores/view';
+$route['corretores/(:any)'] = 'corretores/view/$1';
+$route['coordenadores'] = 'coordenadores/view';
+$route['coordenadores/(:any)'] = 'coordenadores/view/$1';
+
+// $route['(:any)'] = 'pages/view/$1';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

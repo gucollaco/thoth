@@ -226,7 +226,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        value: function _createCanvasFor(element) {
 	            var canvas = document.createElement('canvas');
 	            canvas.height = element.height;
-	            canvas.width = element.width;
+				canvas.width = element.width + 30;
+				canvas.attributes['outerWidth'] = element.width;
 	            return canvas;
 	        }
 

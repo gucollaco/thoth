@@ -1,29 +1,44 @@
 <?php
+    class Coordenadores_model extends CI_Model{
 
-function insert_aluno($aluno) {
-    $this->db->insert('aluno', $aluno);
-}
+        public function __construct(){
+            $this->load->database();
+        }
 
-function insert_corretor($corretor) {
-    $this->db->insert('corretor', $corretor);
-}
+        function insert_aluno($aluno) {
+            $this->db->insert('aluno', $aluno);
+        }
 
-function insert_erro_comum($erro) {
-    $this->db->insert('erro_comum', $erro);
-}
+        function insert_corretor($corretor) {
+            $this->db->insert('corretor', $corretor);
+        }
 
-function insert_comentario_comum($comentario) {
-    $this->db->insert('comentario_comum', $comentario);
-}
+        function insert_erro_comum($erro) {
+            $this->db->insert('erro_comum', $erro);
+        }
 
-function get_corretores($id_coord) {
-    
-}
+        function insert_comentario_comum($comentario) {
+            $this->db->insert('comentario_comum', $comentario);
+        }
 
-function get_redacoes_entregues($turma) {
-    
-}
+        function get_corretores($id_coord) {
+            $this->db->where('codcorretor', $id_corretor);
 
-function get_redacoes_corrigidas($turma) {
-    
-}
+            $result = $this->db->get('redacao')->result_array();
+
+            if(count($result) == 0) return false;
+
+            return array($result);
+        }
+
+        function get_redacoes_entregues($turma) {
+            return array();
+            
+        }
+
+        function get_redacoes_corrigidas($turma) {
+            return array();
+            
+        }
+    }
+

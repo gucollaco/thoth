@@ -1,16 +1,23 @@
 <?php
 class Coordenadores extends CI_Controller{
 
-    public function view($page){
+    public function view($page = 'home'){
 
         $data = array();
         //checa se a pagina existe
+        echo $page;
         if ( ! file_exists(APPPATH.'views/coordenadores/'.$page.'.php'))
         {   
             show_404();
         }
+
+        
+        $data['assets'] = ['css' => ['bootstrap.min.1.css', 'sb-admin.css'],
+                            'js' => ['sb-admin.js']];
+            
             
         $this->load->view('templates/header', $data);
+        $this->load->view('templates/dashboard-header', $data);
         $this->load->view('coordenadores/' . $page, $data);
         $this->load->view('templates/footer');
     }
@@ -93,20 +100,46 @@ class Coordenadores extends CI_Controller{
         }
     }
 
+    function cadastro_criterios() {
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('nome', 'Nome', 'required');
+        $this->form_validation->set_rules('descricao', 'Descrição', 'required');
+        $this->form_validation->set_rules('notatotal', 'Nota total', 'required');
+        $this->form_validation->set_rules('categoria', 'Categoria', 'required');
+        $this->form_validation->set_rules('extra', 'Informações adicionais', 'required');
+        if ($this->form_validation->run()) {
+            $criterio = [
+                'nome' => $this->input->post('nome'),
+                'descricao' => $this->input->post('descricao'),
+                'notatotal' => $this->input->post('notatotal'),
+                'categoria' => $this->input->post('categoria'),
+                'extra' => $this->input->post('extra'),
+            ];
+
+            $this->Coordenadores_model->insert_criterio($criterio);
+            
+            redirect(base_url());
+        }
+        else
+        {
+            $this->view('cadastrar_creiterio');
+        }
+    }
+
     function consultar_corretores($id_coord) {
-        $data = Coordenadores_model->get_corretores($id_coord);
+        $data = $this->Coordenadores_model->get_corretores($id_coord);
 
         return $data;
     }
 
     function consultar_redacoes_entregues($turma) {
-        $data = Coordenadores_model->get_redacoes_entregues($turma);
+        $data = $this->Coordenadores_model->get_redacoes_entregues($turma);
 
         return $data;
     }
 
     function consultar_redacoes_corrigidas($turma) {
-        $data = Coordenadores_model->get_redacoes_corrigidas($turma);
+        $data = $this->Coordenadores_model->get_redacoes_corrigidas($turma);
 
         return $data;
     }

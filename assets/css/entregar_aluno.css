@@ -1,0 +1,54 @@
+.container-body{
+    padding-top: 1.25vh !important;
+    padding-bottom: 1.25vh !important;
+}
+
+.segment-body{
+    min-height: 97.5vh;
+    width: calc(100vw - 2.5vh - 2.5vh) !important;
+
+    margin-top: 0vh !important;
+    margin-bottom:  0vh !important;
+    margin-left: 1.25vh ! important;
+
+    background-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.essay-holder{
+    width: 94%;
+    margin: auto;
+    margin-top: 3%;
+}
+
+.essay-holder .essay{
+    opacity: 0.0;
+    width: 815px;
+}
+
+.comments-holder{
+    margin-top: 3vh;
+    margin-right: 3vh;
+}
+
+.p-expanded{
+    padding: 2.25em !important;
+}
+
+.ui.tabular.menu .item{
+    background: rgba(255, 255, 255, 0.75);
+    color: rgba(0,0,0,.95);
+    font-weight: 700;
+    margin-bottom: -1px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-radius: .28571429rem .28571429rem 0 0!important;
+}
+
+.ui.tabular.menu .item:hover{
+    background: rgba(255, 255, 255, 0.85);
+}
+
+
+.ui.tabular.menu .item.active:hover{
+    background: rgba(255, 255, 255, 1);
+}
