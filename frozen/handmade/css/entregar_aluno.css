@@ -21,5 +21,34 @@
 }
 
 .essay-holder .essay{
-    opacity: 0.75;
+    opacity: 0.0;
+    width: 815px;
+}
+
+.comments-holder{
+    margin-top: 3vh;
+    margin-right: 3vh;
+}
+
+.p-expanded{
+    padding: 2.25em !important;
+}
+
+.ui.tabular.menu .item{
+    background: rgba(255, 255, 255, 0.75);
+    color: rgba(0,0,0,.95);
+    font-weight: 700;
+    margin-bottom: -1px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-radius: .28571429rem .28571429rem 0 0!important;
+}
+
+.ui.tabular.menu .item:hover{
+    background: rgba(255, 255, 255, 0.85);
+}
+
+
+.ui.tabular.menu .item.active:hover{
+    background: rgba(255, 255, 255, 1);
 }

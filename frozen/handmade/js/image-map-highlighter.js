@@ -71,7 +71,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        _classCallCheck(this, ImageMapHighlighter);
 
 	        this.element = element;
-	        this.options = Object.assign({}, this._getDefaultOptions(), options);
+			this.options = Object.assign({}, this._getDefaultOptions(), options);
+			this._drawn = [];
+			this._lastClick = undefined;
+			this.groups = [];
+			this.textos = [];
 	    }
 
 	    /**
@@ -108,14 +112,71 @@ return /******/ (function(modules) { // webpackBootstrap
 	                // Animate the canvas accordingly every time we hover over an image
 	                // mapping.
 	                map.addEventListener('mouseover', function (event) {
-	                    _this._clearHighlights(canvas);
+	                    // _this._clearHighlights(canvas);
 	                    _this._drawHighlightByArea(canvas, event.target);
 	                });
 
 	                // Clear the canvas when we hover off a mapping.
 	                map.addEventListener('mouseout', function (event) {
-	                    _this._clearHighlights(canvas);
-	                });
+						_this._clearHighlights(canvas);
+						_this._drawn.forEach(function(item, index){
+							_this._drawHighlightByArea(canvas, item);
+						});
+				
+						var context = canvas.getContext('2d');
+						context.font="25px Calibri";
+						context.fillStyle = "rgb(0, 0, 0)";
+						
+						_this.textos.forEach(function(item, index){
+							context.fillText(item[0], item[1], item[2]);
+						});
+					});
+
+					
+					map.addEventListener('click', function(event){
+						var isGroup = false;
+						var coords = event.target.coords.split(',').map(function (coord) {
+							return parseInt(coord);
+						});
+
+						var gridWidth = parseInt(event.target.attributes['gridWidth'].value);
+						var gridSize = parseInt(event.target.attributes['gridSize'].value);
+
+						var nCol = Math.ceil(gridWidth/gridSize);
+						var idArea = function(i, j, n){
+							return i + j*n;
+						};
+
+						_this.groups.forEach(function(item, index){
+							var item0 = idArea(item[0][0], item[0][1], nCol);
+							var itemN = idArea(item[1][0], item[1][1], nCol);
+							var itemI = idArea(coords[0], coords[1], nCol);
+							
+							if(item0 <= itemI && itemI <= itemN){
+								// console.log([item0, itemI, itemN]);
+								isGroup = true;
+							}
+						});
+
+						// console.log(isGroup);
+
+						if(!isGroup){
+							_this._drawHighlightLine(canvas, event.target);
+
+							_this._clearHighlights(canvas);
+							_this._drawn.forEach(function(item, index){
+								_this._drawHighlightByArea(canvas, item);
+							});
+				
+							var context = canvas.getContext('2d');
+							context.font="25px Calibri";
+							context.fillStyle = "rgb(0, 0, 0)";
+							
+							_this.textos.forEach(function(item, index){
+								context.fillText(item[0], item[1], item[2]);
+							});							
+						}
+					});
 	            }
 	        }
 	    }, {
@@ -124,7 +185,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return {
 	                fill: true,
 	                fillColor: '000000',
-	                fillOpacity: 0.2,
+	                fillOpacity: 1,
 	                stroke: true,
 	                strokeColor: 'ff0000',
 	                strokeOpacity: 1,
@@ -203,7 +264,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        key: '_clearHighlights',
 	        value: function _clearHighlights(canvas) {
 	            var context = canvas.getContext('2d');
-	            context.clearRect(0, 0, canvas.width, canvas.height);
+				context.clearRect(0, 0, canvas.width, canvas.height);
+				
+				// redesenhar os textos
 	        }
 
 	        /**
@@ -235,9 +298,105 @@ return /******/ (function(modules) { // webpackBootstrap
 	         */
 
 	    }, {
+	        key: '_drawHighlightLine',
+	        value: function _drawHighlightLine(canvas, area) {
+				if(this._lastClick == undefined){
+					this._lastClick = area;
+				}else{
+					console.log(area);
+					var gridId = this._lastClick.attributes['gridId'].value;
+					var coords0 = gridId.split(',').map(function (coord) {
+						    return parseInt(coord);
+						});
+
+					gridId = area.attributes['gridId'].value;
+					var coordsN = gridId.split(',').map(function (coord) {
+							return parseInt(coord);
+						});
+
+					console.log([coords0, coordsN]);
+
+					var gridWidth = parseInt(area.attributes['gridWidth'].value);
+					var gridSize = parseInt(area.attributes['gridSize'].value);
+
+					var nCol = Math.ceil(gridWidth/gridSize);
+					var nExactCol = Math.floor(gridWidth/gridSize);
+					var idArea = function(i, j, n){
+						return i + j*n;
+					};
+
+					var minArea = coords0;
+					var maxArea = coordsN;
+					if(idArea(coordsN[0], coordsN[1], nCol) < idArea(coords0[0], coords0[1], nCol)){
+						minArea = coordsN;
+						maxArea	= coords0;
+					}
+
+
+					var isGroup = false;
+					this.groups.forEach(function(item, index){
+						var item0 = idArea(item[0][0], item[0][1], nCol);
+						var itemN = idArea(item[1][0], item[1][1], nCol);
+						var itemI = idArea(minArea[0], minArea[1], nCol);
+						
+						if(item0 <= itemI && itemI <= itemN){
+							// console.log([item0, itemI, itemN]);
+							isGroup = true;
+						}
+					});
+
+					if(!isGroup){
+						this.groups.push([minArea, maxArea]);
+						this.textos.push([this.groups.length.toString(), (nExactCol) * gridSize - (25/2), minArea[1] + (gridSize/4)]);
+
+						for(var j = minArea[1]; j <= maxArea[1]; j+= gridSize){
+							var minX = minArea[0];
+							if(j > minArea[1]){
+								minX = 0;
+							}
+
+							var maxX = nExactCol * gridSize;
+							if(j == maxArea[1]){
+								maxX = maxArea[0]
+							}
+
+							for(var i = minX; i <= maxX; i += gridSize){
+								var idElement = 'area' + i + ',' + j;
+								var curr_area = document.getElementById(idElement);
+								// console.log([idElement]);
+								// this._drawHighlightByArea(canvas, curr_area);
+								if(curr_area != undefined){
+									this._drawn.push(curr_area);
+								}
+							}
+						}
+					}
+
+					this._lastClick = undefined;
+				}
+
+	            // var coords = area.coords.split(',').map(function (coord) {
+	            //     return parseInt(coord);
+	            // });
+	            // var shape = area.shape;
+
+	            // this._drawHighlight(canvas, shape, coords);
+	        }
+
+	        /**
+	         * Draw a highlight onto the provided HTML canvas element.
+	         *
+	         * @param {HTMLCanvasElement} canvas
+	         * @param {String} shape
+	         * @param {Array} coords
+	         * @private
+	         */
+
+	    }, {
+	    }, {
 	        key: '_drawHighlight',
 	        value: function _drawHighlight(canvas, shape, coords) {
-	            var context = canvas.getContext('2d');
+				var context = canvas.getContext('2d');
 
 	            context.beginPath();
 	            switch (shape) {
@@ -258,16 +417,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            context.closePath();
 
 	            if (this.options.fill) {
-	                context.fillStyle = this.css3Colour(this.options.fillColor, this.options.fillOpacity);
+					context.fillStyle = this.css3Colour(this.options.fillColor, 0.5);
 	                context.fill();
 	            }
-
-	            if (this.options.stroke) {
-	                context.strokeStyle = this.css3Colour(this.options.strokeColor, this.options.strokeOpacity);
-	                context.lineWidth = this.options.strokeWidth;
-	            }
-
-	            context.stroke();
 	        }
 
 	        /**
