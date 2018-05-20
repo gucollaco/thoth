@@ -12,7 +12,7 @@
         <title>Thoth</title>
 
 
-        <link rel="stylesheet" type="text/css" href="<?=base_url('assets/bootstrap/css/bootstrap.min.css')?>">
+        <!-- <link rel="stylesheet" type="text/css" href="<?=base_url('assets/bootstrap/css/bootstrap.min.css')?>"> -->
 
         <link rel="stylesheet" type="text/css" href="<?=base_url('assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css')?>">
         <link rel="stylesheet" type="text/css" href="<?=base_url('assets/fonts/Linearicons-Free-v1.0.0/icon-font.min.css')?>">

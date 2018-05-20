@@ -4,7 +4,7 @@
     <div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100 p-l-50 p-r-50 p-t-55 p-b-30">
-				<form class="login100-form validate-form">
+				<form method="post" action="<?= base_url("usuarios/cadastro_aluno_validation()"); ?>" class="login100-form validate-form">
 					<span class="login100-form-title p-b-55">
 						Thoth
 					</span>
