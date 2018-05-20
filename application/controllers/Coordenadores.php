@@ -100,6 +100,32 @@ class Coordenadores extends CI_Controller{
         }
     }
 
+    function cadastro_criterios() {
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('nome', 'Nome', 'required');
+        $this->form_validation->set_rules('descricao', 'Descrição', 'required');
+        $this->form_validation->set_rules('notatotal', 'Nota total', 'required');
+        $this->form_validation->set_rules('categoria', 'Categoria', 'required');
+        $this->form_validation->set_rules('extra', 'Informações adicionais', 'required');
+        if ($this->form_validation->run()) {
+            $criterio = [
+                'nome' => $this->input->post('nome'),
+                'descricao' => $this->input->post('descricao'),
+                'notatotal' => $this->input->post('notatotal'),
+                'categoria' => $this->input->post('categoria'),
+                'extra' => $this->input->post('extra'),
+            ];
+
+            $this->Coordenadores_model->insert_criterio($criterio);
+            
+            redirect(base_url());
+        }
+        else
+        {
+            $this->view('cadastrar_creiterio');
+        }
+    }
+
     function consultar_corretores($id_coord) {
         $data = $this->Coordenadores_model->get_corretores($id_coord);
 

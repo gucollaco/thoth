@@ -55,8 +55,7 @@ $route['default_controller'] = 'pages/view';
 $route['login'] = 'usuarios/view/login';
 $route['pre_cadastro'] = 'usuarios/view/pre_cadastro';
 $route['pre_cadastro/(:any)'] = 'usuarios/view/cadastrar_$1';
-<<<<<<< HEAD
-$route['home/(:any)'] = '$1/view/home';
+
 $route['coordenadores/(:any)'] = 'coordenadores/view/$1';
 
 // $route['(:any)'] = 'pages/view/$1';

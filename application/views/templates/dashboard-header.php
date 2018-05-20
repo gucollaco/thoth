@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav" style="    height: 56px;">
-		<a class="navbar-brand" href="home_coordenador.html">Thoth</a>
+		<a class="navbar-brand" href="<?=base_url('coordenadores/home')?>">Thoth</a>
 		<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -12,19 +12,19 @@
                     </a>
                     <ul class="sidenav-second-level collapse" id="collapseCadastrar">
                         <li>
-                            <a href="home_coordenador_cadastrar_aluno.html">Aluno</a>
+                            <a href="<?=base_url('coordenadores/cadastrar_aluno')?>">Aluno</a>
                         </li>
                         <li>
-                            <a href="home_coordenador_cadastrar_corretor.html">Corretor</a>
+                            <a href="<?=base_url('coordenadores/cadastrar_corretor')?>">Corretor</a>
                         </li>
                         <li>
-                            <a href="home_coordenador_cadastrar_erros.html">Erros Comuns</a>
+                            <a href="<?=base_url('coordenadores/cadastrar_erros_comuns')?>">Erros Comuns</a>
                         </li>
                         <li>
-                            <a href="home_coordenador_cadastrar_comentarios.html">Comentários Comuns</a>
+                            <a href="<?=base_url('coordenadores/cadastrar_comentarios_comuns')?>">Comentários Comuns</a>
                         </li>
                         <li>
-                            <a href="home_coordenador_cadastrar_criterio.html">Critério</a>
+                            <a href="<?=base_url('coordenadores/cadastrar_criterios')?>">Critério</a>
                         </li>
                     </ul>
                 </li>
@@ -35,13 +35,13 @@
                     </a>
                     <ul class="sidenav-second-level collapse" id="collapseConsultar">
                         <li>
-                            <a href="home_coordenador_consultar_acessocorretor.html">Acesso Corretor</a>
+                            <a href="<?=base_url('coordenadores/consultar_corretores')?>">Acesso Corretor</a>
                         </li>
                         <li>
-                            <a href="home_coordenador_consultar_redacoesentregues.html">Redações Entregues</a>
+                            <a href="<?=base_url('coordenadores/consultar_redacoes_entregues')?>">Redações Entregues</a>
                         </li>
                         <li>
-                            <a href="home_coordenador_consultar_redacoescorrigidas.html">Redações Corrigidas</a>
+                            <a href="<?=base_url('coordenadores/consultar_redacoes_corrigidas')?>">Redações Corrigidas</a>
                         </li>
                     </ul>
                 </li>
@@ -52,7 +52,7 @@
                     </a>
                     <ul class="sidenav-second-level collapse" id="collapseExportar">
                         <li>
-                            <a href="home_coordenador_exportar_notas.html">Nota de Alunos</a>
+                            <a href="<?=base_url('coordenadores/exportar_notas')?>">Nota de Alunos</a>
                         </li>
                     </ul>
                 </li>
@@ -63,7 +63,7 @@
                     </a>
                     <ul class="sidenav-second-level collapse" id="collapseDesignar">
                         <li>
-                            <a href="home_coordenador_designar_alunos.html">Alunos com Corretor</a>
+                            <a href="<?=base_url('coordenadores/designar_alunos')?>">Alunos com Corretor</a>
                         </li>
                     </ul>
                 </li>
@@ -77,7 +77,7 @@
 			</ul>
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item">
-					<a class="nav-link" data-toggle="modal" data-target="#exampleModal">Logout</a>
+                    <a class="btn btn-primary" href="<?=base_url('Usuarios/logout')?>">Logout</a>
 				</li>
 			</ul>
 		</div>
