@@ -12,7 +12,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 
-$hook['post_controller_constructor'][] = [
+$hook['post_controller_constructor'] = [
     'function' => 'is_logged',
     'filename' => 'login.php',
     'filepath' => 'hooks'

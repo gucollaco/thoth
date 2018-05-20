@@ -16,6 +16,8 @@
 	<link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 	<!-- Custom styles for this template-->
 	<link href="css/sb-admin.css" rel="stylesheet">
+
+	<link href="css/tableexport.min.css" rel="stylesheet">
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -34,7 +36,7 @@
                     </a>
                     <ul class="sidenav-second-level collapse" id="collapseCadastrar">
                         <li>
-                            <a href="home_coordenador_cadastrar_redacao.html">Redação</a>
+                            <a href="home_coordenador_cadastrar_aluno.html">Aluno</a>
                         </li>
                         <li>
                             <a href="home_coordenador_cadastrar_corretor.html">Corretor</a>
@@ -46,7 +48,7 @@
                             <a href="home_coordenador_cadastrar_comentarios.html">Comentários Comuns</a>
                         </li>
                         <li>
-                            <a href="home_coordenador_cadastrar_comentarios.html">Comentários Comuns</a>
+                            <a href="home_coordenador_cadastrar_criterio.html">Critério</a>
                         </li>
                     </ul>
                 </li>
@@ -78,6 +80,17 @@
                         </li>
                     </ul>
                 </li>
+				<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Designar">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseDesignar" data-parent="#exampleAccordion">
+                        <i class="fa fa-fw fa-table"></i>
+                        <span class="nav-link-text">Designar</span>
+                    </a>
+                    <ul class="sidenav-second-level collapse" id="collapseDesignar">
+                        <li>
+                            <a href="home_coordenador_designar_alunos.html">Alunos com Corretor</a>
+                        </li>
+                    </ul>
+                </li>
 			</ul>
 			<ul class="navbar-nav sidenav-toggler">
 				<li class="nav-item">
@@ -96,19 +109,42 @@
 
 	<div class="content-wrapper">
 		<div class="container-fluid">
-			<!-- Breadcrumbs-->
-			<ol class="breadcrumb">
-				<li class="breadcrumb-item">
-                    Bem vindo coordenador!
-				</li>
-			</ol>
-			<!-- Area Chart Example-->
+			<!-- Example DataTables Card-->
 			<div class="card mb-3">
 				<div class="card-header">
-					<i class="fa fa-area-chart"></i> Area Chart Example</div>
-				<div class="card-body">
-					<canvas id="myAreaChart" width="100%" height="30"></canvas>
+					<i class="fa fa-table"></i> Tabela de Exportar Notas de Aluno e Corretor
 				</div>
+				<div class="card-body">
+					<div class="table-responsive">
+						<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+							<thead>
+								<tr>
+									<th>Nome</th>
+									<th>Corretor</th>
+									<th>Nota</th>
+								</tr>
+							</thead>
+							<tfoot>
+								<tr>
+									<th>Nome</th>
+									<th>Corretor</th>
+									<th>Nota</th>
+								</tr>
+							</tfoot>
+							<tbody>
+								<tr>
+									<td>Tiger Nixon</td>
+									<td>Dunnou</td>
+									<td>9.0</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-2"><a class="btn btn-primary btn-block" href="#">Exportar</a></div>
+				<div class="col-md-10"></div>
 			</div>
 		</div>
 		<!-- /.container-fluid-->
@@ -122,8 +158,8 @@
 		</footer>
 		<!-- Scroll to Top Button-->
 		<a class="scroll-to-top rounded" href="#page-top">
-      <i class="fa fa-angle-up"></i>
-    </a>
+	      	<i class="fa fa-angle-up"></i>
+	    </a>
 		<!-- Logout Modal-->
 		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">
@@ -156,7 +192,14 @@
 		<!-- Custom scripts for this page-->
 		<script src="js/sb-admin-datatables.min.js"></script>
 		<script src="js/sb-admin-charts.min.js"></script>
+
+		<script src="js/FileSaver.min.js"></script>
+		<script src="js/tableexport.min.js"></script>
 	</div>
 </body>
 
 </html>
+
+<script>
+	$('table').tableExport();
+</script>
