@@ -75,13 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> 'mysql:host=localhost:3306;dbname=teste',
-	'dsn'	=> 'mysql:host=localhost:3306;dbname=thoth',
 	'hostname' => 'localhost:3306',
 	'username' => 'root',
 	'password' => '',
 	'database' => 'teste',
-	'password' => 'thinker',
-	'database' => 'thoth',
 	'dbdriver' => 'pdo',
 	'dbprefix' => '',
 	'pconnect' => TRUE,
