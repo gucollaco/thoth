@@ -12,10 +12,12 @@ class Coordenadores extends CI_Controller{
         }
 
         
-        $data['assets'] = ['css' => ['bootstrap.min.1.css']];
+        $data['assets'] = ['css' => ['bootstrap.min.1.css', 'sb-admin.css'],
+                            'js' => ['sb-admin.js']];
             
             
         $this->load->view('templates/header', $data);
+        $this->load->view('templates/dashboard-header', $data);
         $this->load->view('coordenadores/' . $page, $data);
         $this->load->view('templates/footer');
     }
