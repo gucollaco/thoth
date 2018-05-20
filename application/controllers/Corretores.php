@@ -9,6 +9,9 @@ class Corretores extends CI_Controller{
         {   
             show_404();
         }
+
+        $data['assets'] = ['css' => ['entregar_aluno.css', 'image-map-highlighter.css'],
+                            'js' => ['image-map-highlighter.js', 'entregar_aluno.js']];
             
         $this->load->view('templates/header', $data);
         $this->load->view('corretores/' . $page, $data);
@@ -16,13 +19,13 @@ class Corretores extends CI_Controller{
     }
 
     function visualizar_redacoes($id_corretor) {
-        $data = Corretores_model->get_redacoes($id_corretor);
+        $data = $this->Corretores_model->get_redacoes($id_corretor);
 
         return $data;
     }
 
     function consultar_coletanea($id_coletanea) {
-        $data = Corretores_model->get_coletanea($id_coletanea);
+        $data = $this->Corretores_model->get_coletanea($id_coletanea);
 
         return $data;
     }
