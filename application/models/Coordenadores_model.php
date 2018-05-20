@@ -22,7 +22,13 @@
         }
 
         function get_corretores($id_coord) {
-            return array();
+            $this->db->where('codcorretor', $id_corretor);
+
+            $result = $this->db->get('redacao')->result_array();
+
+            if(count($result) == 0) return false;
+
+            return array($result);
         }
 
         function get_redacoes_entregues($turma) {

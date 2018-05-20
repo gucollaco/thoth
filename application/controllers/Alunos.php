@@ -1,7 +1,7 @@
 <?php
 class Alunos extends CI_Controller{
 
-    public function view($page){
+    public function view($page = 'home'){
 
         $data = array();
         //checa se a pagina existe
@@ -40,5 +40,11 @@ class Alunos extends CI_Controller{
         {
             $this->view('cadastrar_redacao');
         }
+    }
+
+    public function consultar_redacoes($id_aluno) {
+        $data = $this->Corretores_model->get_redacoes($id_aluno);
+        $result = json_encode($data); //JSON_UNESCAPED_UNICODE
+        echo $result;
     }
 }
