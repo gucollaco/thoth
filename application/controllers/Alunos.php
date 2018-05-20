@@ -43,8 +43,8 @@ class Alunos extends CI_Controller{
     }
 
     public function consultar_redacoes($id_aluno) {
-        $data = Corretores_model->get_redacoes($id_aluno);
-
-        return $data;
+        $data = $this->Corretores_model->get_redacoes($id_aluno);
+        $result = json_encode($data); //JSON_UNESCAPED_UNICODE
+        echo $result;
     }
 }

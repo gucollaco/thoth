@@ -11,6 +11,6 @@
 
         public function get_redacoes($id_aluno) {
             $this->db->where('idaluno', $id_aluno);
-            $this->db->get('redacao')->result_array();
+            return $this->db->get('redacao')->result_array();
         }
     }

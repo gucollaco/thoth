@@ -57,6 +57,7 @@ $route['pre_cadastro'] = 'usuarios/view/pre_cadastro';
 $route['pre_cadastro/(:any)'] = 'usuarios/view/cadastrar_$1';
 
 $route['alunos'] = 'alunos/view';
+$route['alunos/consultar_redacoes/(any:)'] = 'alunos/consultar_redacoes/$1';
 $route['alunos/(:any)'] = 'alunos/view/$1';
 $route['corretores'] = 'corretores/view';
 $route['corretores/(:any)'] = 'corretores/view/$1';
